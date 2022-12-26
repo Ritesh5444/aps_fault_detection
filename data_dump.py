@@ -1,0 +1,27 @@
+import pymongo
+import pandas as pd
+import json
+#Providing MongoDB local host URL to connect MongoDB to python
+client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
+
+
+DATA_FILE_PATH = "/config/workspace/aps_failure_training_set1.csv"
+DATABASE_NAME = "aps"
+COLLECTION_NAME = "sensor"
+
+if __name__ == "__main__":
+    df = pd.read_csv(DATA_FILE_PATH)
+    print(f"Rows and columns in dataframe : {df.shape}")
+
+#Convert dataframe to JSON so that we can save the records in MongoDB
+
+    df.reset_index(drop = True, inplace = True)
+
+    json_record = list(json.loads(df.T.to_json()).values())
+    print(json_record[0])
+
+    #Insert converted json to MongoDB
+    client[DATABASE_NAME][COLLECTION_NAME].insert_many(json_record)
+
+    
+
