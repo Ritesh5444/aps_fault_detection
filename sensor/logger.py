@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 import os
 
-#Log file name will be current time stamp
+#Log file name will be current time stamp with suffix as .log
 LOG_FILE_NAME = f"{datetime.now().strftime('%m%d%y__%H%M%S')}.log"
 
 #Log directory
