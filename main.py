@@ -1,25 +1,28 @@
-import pymongo
 
 # Provide the mongodb localhost url to connect python to mongodb.
-client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
+#client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
 
-# Database Name
-dataBase = client["neurolabDB"]
+#This is a test program written to check Sensor and exception modules written 
+import sys,os
+from sensor.exception import SensorException
+from sensor.logger import logging
 
-# Collection  Name
-collection = dataBase['Products']
 
-# Sample data
-d = {'companyName': 'iNeuron',
-     'product': 'Affordable AI',
-     'courseOffered': 'Machine Learning with Deployment'}
+def sensor_and_exception():
+     try:
+          logging.info("Starting the test logger and exception")
+          result = 3/0
+          print (result)
+          logging.info("Stopping the test logger and exception")
+     except Exception as e:
+          logging.info("Stopping the test logger and exception")
+          raise SensorException(e, sys)
 
-# Insert above records in the collection
-rec = collection.insert_one(d)
+          
+if __name__ == "__main__":
+     try:
+          sensor_and_exception()
+     except Exception as e:
+          print(e)
 
-# Lets Verify all the record at once present in the record with all the fields
-all_record = collection.find()
-
-# Printing all records present in the collection
-for idx, record in enumerate(all_record):
-     print(f"{idx}: {record}")
+     
