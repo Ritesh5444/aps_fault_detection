@@ -6,23 +6,28 @@
 import sys,os
 from sensor.exception import SensorException
 from sensor.logger import logging
+from sensor.utils import get_collection_as_dataframe
 
-
-def sensor_and_exception():
-     try:
-          logging.info("Starting the test logger and exception")
-          result = 3/0
-          print (result)
-          logging.info("Stopping the test logger and exception")
-     except Exception as e:
-          logging.info("Stopping the test logger and exception")
-          raise SensorException(e, sys)
+#def sensor_and_exception():
+#     try:
+ #         logging.info("Starting the test logger and exception")
+  #        result = 3/0
+   #       print (result)
+    #      logging.info("Stopping the test logger and exception")
+     #except Exception as e:
+      #    logging.info("Stopping the test logger and exception")
+       #   raise SensorException(e, sys)
 
           
+#if __name__ == "__main__":
+#     try:
+#          sensor_and_exception()
+#     except Exception as e:
+#          print(e)
+
+
 if __name__ == "__main__":
      try:
-          sensor_and_exception()
+          get_collection_as_dataframe(database_name ="aps", collection_name = "sensor")    
      except Exception as e:
-          print(e)
-
-     
+          print (e)
