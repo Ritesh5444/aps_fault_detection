@@ -8,10 +8,14 @@ class TrainingPipelineConfig:
 
 class DataIngestionConfig:
 
-    def __init__(self, training_pipeline_config: TrainingPipelineConfig)
-    self.database_name = "aps"
-    self.collection_name = "sensor"
-    self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir, "data_ingestion")
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+    #training_pipeline_config: TrainingPipelineConfig - it is creating object of 
+    # TrainingPipelineConfig class and we are accessing 'artifact_dir' using this object
+        self.database_name = "aps"
+        self.collection_name = "sensor"
+        #This will create data ingestion folder when traning pipeline is executed
+        self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir, "data_ingestion")
+
 class DataValidationConfig:...
 class DataTransformationConfig:...
 class ModelTrainerConfig:...
