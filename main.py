@@ -1,33 +1,14 @@
-
-# Provide the mongodb localhost url to connect python to mongodb.
-#client = pymongo.MongoClient("mongodb://localhost:27017/neurolabDB")
-
-#This is a test program written to check Sensor and exception modules written 
 import sys,os
 from sensor.exception import SensorException
 from sensor.logger import logging
+from sensor.entity.config_entity import DataIngestionConfig
 from sensor.utils import get_collection_as_dataframe
-
-#def sensor_and_exception():
-#     try:
- #         logging.info("Starting the test logger and exception")
-  #        result = 3/0
-   #       print (result)
-    #      logging.info("Stopping the test logger and exception")
-     #except Exception as e:
-      #    logging.info("Stopping the test logger and exception")
-       #   raise SensorException(e, sys)
-
-          
-#if __name__ == "__main__":
-#     try:
-#          sensor_and_exception()
-#     except Exception as e:
-#          print(e)
-
 
 if __name__ == "__main__":
      try:
-          get_collection_as_dataframe(database_name ="aps", collection_name = "sensor")    
+          training_pipeline_config = config_entity.TrainingPipelineConfig()
+          data_ingestion_config= DataIngestionConfig(training_pipeline_config)
+          print(data_ingestion_config.to_dict())
      except Exception as e:
-          print (e)
+          print(e)
+
