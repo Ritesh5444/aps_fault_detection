@@ -1,3 +1,4 @@
+#Confifuration - input
 import os
 
 FILE_NAME = 'sensor.csv'
@@ -7,7 +8,8 @@ TEST_FILE_NAME = 'test.csv'
 class TrainingPipelineConfig:
 
     def __init__(self):
-        #This will create a folder name artifact everytime training pipeline is executed
+        #This will create a folder name artifact everytime training pipeline is executed. 
+        # And under that Artifact name folder there will be subfolder with datetime stamp
         self.artifact_dir = os.path.join(os.getcwd(),"artifact",f"{datetime.now().strftime('%m%d%y__%H%M%S')}")
 
 class DataIngestionConfig:
@@ -19,7 +21,7 @@ class DataIngestionConfig:
     # TrainingPipelineConfig class and we are accessing 'artifact_dir' using this object
             self.database_name = "aps"
             self.collection_name = "sensor"
-            #This will create data ingestion folder when traning pipeline is executed
+            #This will create data ingestion folder when traning pipeline is executed under the datetime folder created above
             self.data_ingestion_dir = os.path.join(training_pipeline_config.artifact_dir, "data_ingestion")
             self.feature_store_file_path = os.path.join(self.data_ingestion_dir,"feature_store")
             self.train_file_path = os.path.join(self.data_ingestion_dir,"dataset",TRAIN_FILE_NAME)
@@ -36,7 +38,14 @@ class DataIngestionConfig:
 
             raise SensorException(e,sys) 
 
-class DataValidationConfig:...
+class DataValidationConfig:
+
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig()):
+        self.data_validation_dir = os.path.join(training_pipeline_config.artifact_dir,"data validation")
+        self.report_file_path = os.path.join(self.data_validation_dir,"report.yaml")
+        self.missing_threshold: float = 0.7 # As per EDA in Scania...ipynb
+
+
 class DataTransformationConfig:...
 class ModelTrainerConfig:...
 class ModelEvaluationConfig:...

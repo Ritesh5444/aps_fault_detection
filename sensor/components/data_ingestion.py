@@ -12,7 +12,8 @@ class DataIngestion:
     
     def __init__(self, data_ingestion_config : config_entity.DataIngestionConfig):
         try:
-            logging.info(f"{'>>'*20}" Data Ingestion {'<<'*20})
+            logging.info(f"{'>>'*20} Data Ingestion {'<<'*20}")
+            
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise SensorException(e, sys)
@@ -32,8 +33,8 @@ class DataIngestion:
 
             #Save data in feature store
             logging.info("Create feature store folder if not available")
+
             #Create feature store if not available
-            
             feature_store_dir = os.path.dirname(self.data_ingestion_config.feature_store_file_path)
             os.makedirs(feature_store_dir,exist_ok= True)
             logging.info("save df to feature store folder")
@@ -42,7 +43,7 @@ class DataIngestion:
             
             df.to_csv(path_or_buf = self.data_ingestion_config.feature_store_file_path,index = False, header = True)
             
-            logging.info("Split dataset into into train and test split")
+            logging.info("Split dataset into train and test split")
             #Split dataset to train and test
             train_df, test_df = train_test_split(df,test_size = self.data_ingestion_config.test_size, random_state = 42)
 
