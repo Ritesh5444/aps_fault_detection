@@ -29,7 +29,7 @@ class DataIngestion:
             logging.info("save data in feature store")
 
             #replace na with NaN
-            df.replace(to_replace = 'na', value= np.NAN, inplace = True)
+            df.replace(to_replace="na",value=np.NAN,inplace=True)
 
             #Save data in feature store
             logging.info("Create feature store folder if not available")
