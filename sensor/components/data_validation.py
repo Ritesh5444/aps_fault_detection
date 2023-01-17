@@ -35,7 +35,8 @@ class DataValidation:
         returns pandas Dataframe if atleast single column is available
         
         """
-        #Option[] has been used if no columns are satisfying the criteria of 0.3 threshold and we don't get any record
+        #Option[] has been used if no columns are satisfying the criteria of 0.2
+        #  threshold and we don't get any record
         try:
             threshold = self.data_validation_config.missing_threshold
             null_report = df.isna().sum()/df.shape[0]
@@ -89,12 +90,12 @@ class DataValidation:
 
             if same_distirbution.pvalue > 0.05:
                 #We are accepting NULL hypothesis
-                drift_report[base_column]- {
+                drift_report[base_column] = {
                     "pvalues": float(same_distirbution.pvalue),
                     "same_distribution": True
                 }
             else:
-                drift_report[base_column]- {
+                drift_report[base_column] = {
                     "pvalues": float(same_distirbution.pvalue),
                     "same_distribution": False
                 }
@@ -112,7 +113,6 @@ class DataValidation:
             logging.info(f"Reading base dataframe")
             base_df = pd.read_csv(self.data_validation_config.base_file_path)
             base_df.replace({"na":np.NAN}, inplace = True)
-            
             logging.info(f"Replace na value in base df")
             #Base df has na as NULL
             logging.info(f"Drop null value colmuns from base df")
