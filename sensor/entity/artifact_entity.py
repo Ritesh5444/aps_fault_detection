@@ -13,8 +13,13 @@ class DataValidationArtifact:
     report_file_path: str
 
 
-    
-class DataTransformationAtrifact:...
+@dataclass
+class DataTransformationAtrifact:
+    transform_object_path : str
+    transformed_train_path : str
+    trannsformed_test_path : str
+    target_encoder_path : str
+
 class ModelTrainerArtifact:...
 class ModelEvaluationArtifact:...
 class ModelPusherArtifact:...
