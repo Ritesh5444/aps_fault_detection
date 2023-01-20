@@ -1,7 +1,7 @@
 # From the jupyter notebook it can be seen that 
 # 1. Ouptput class value (Pos/Neg) is highly imbalanced so we will use Smotek library to balance it. 
 # We will create values for 'Pos' class 
-# 2. We will replace the missing values 
+# 2. We will convert the categorical value to numerical using Label Encoder
 # 3. Use 'Robust Scaler' to remove the impact of outliers
 
 from sensor.entity import config_entity, artifact_entity
@@ -69,6 +69,7 @@ class DataTransformation:
             label_encoder.fit(target_feature_train_df)
 
             #transformation on target columns
+            # The o/p of the encoder will be an array
             target_feature_train_arr = label_encoder.transform(target_feature_train_df)
             target_feature_test_arr = label_encoder.transform(target_feature_test_df)
 
@@ -79,6 +80,8 @@ class DataTransformation:
             input_feature_train_arr = transformation_pipeline.trasnform(input_feature_train_arr)
             input_feature_test_df = transformation_pipeline.transform(input_feature_train_arr)
 
+            #Smote library is used to balance the imbalanced data. It creates records for the
+            # minority library
             smt = SMOTETomek(sampling_strategy="minority")
             logging.info(f"Before resampling in training set Input : {input_feature_train_arr.shape} Target : {target_feature_train_arr.shape}")
             input_feature_train_arr, target_feature_train_arr = smt.fit_resample(input_feature_train_arr, target_feature_train_arr)
@@ -89,6 +92,7 @@ class DataTransformation:
             logging.info(f"After resampling in testing set Input : {input_feature_test_arr.shape} Target : {target_feature_test_arr.shape}")
 
             #Target encoder
+            #We are concatatenating the input and target features of train and test array
             train_arr = np.c_[input_feature_train_arr,target_feature_train_arr]
             test_arr = np.c_[input_feature_test_arr, target_feature_test_arr]
 

@@ -20,6 +20,15 @@ class DataTransformationAtrifact:
     trannsformed_test_path : str
     target_encoder_path : str
 
-class ModelTrainerArtifact:...
-class ModelEvaluationArtifact:...
+@dataclass
+class ModelTrainerArtifact:
+    model_path : str
+    f1_train_score : float
+    f1_test_score : float
+    
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted: bool
+    improved_accuracy :float
+
 class ModelPusherArtifact:...
