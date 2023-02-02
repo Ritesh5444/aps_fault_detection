@@ -13,6 +13,7 @@ class ModelPusher:
     def __init__(self, model_pusher_config: ModelPusherConfig,data_transformation_artifact : DataTransformationAtrifact,
     model_trainer_artifact : ModelTrainerArtifact):
         try:
+            logging.info(f"{'>>'*20} Model Pusher {'<<'*20}")
             self.model_pusher_config = model_pusher_config
             self.data_transformation_artifact = data_transformation_artifact
             self.model_trainer_artifact = model_trainer_artifact
@@ -31,16 +32,18 @@ class ModelPusher:
             target_encoder = load_object(file_path = self.data_transformation_artifact.target_encoder_path)
 
             #Model pusher dir
+            logging.info(f"saving model into model pusher directory")
             save_object(file_path = self.model_pusher_config.pusher_transformer_path, obj = transformer)
             save_object(file_path = self.model_pusher_config.pusher_model_dir, obj = model)
             save_object(file_path= self.model_pusher_config.pusher_target_encoder_path, obj = target_encoder)
 
             #saved model dir
             
-            save_object(file_path = self.model_resolver.get_latest_transformer_path(), obj = transformer)
-            save_object(file_path = self.model_resolver.get_latest_save_model_path(), obj = model)
-            save_object(file_path= self.model_resolver.get_latest_save_target_encoder_path(), obj = target_encoder)
-
+            logging.info(f"Saving model into saved model dir")
+            transformer_path = self.model_resolver.get_latest_save_transformer_path()
+            model_path=  self.model_resolver.get_latest_save_model_path()
+            target_encoder_path  = self.model_resolver.get_latest_save_target_encoder_path()
+            
             save_object(file_path = tranfomer_path, obj = transformer)
             save_object(file_path = model_path, obj = model)
             save_object(file_path = target_encoder_path, obj = target_encoder)
