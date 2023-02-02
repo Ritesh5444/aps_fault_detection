@@ -66,7 +66,7 @@ class ModelResolver:
         except Exception as e:
             raise e
 
-    def get_latest_save_model(self):
+    def get_latest_save_model_path(self):
 
         try:
             latest_dir = self.get_latest_save_dir_path()
